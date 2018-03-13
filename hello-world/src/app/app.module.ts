@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { CoursesService } from './courses.service';
+import { PostService } from './post.service';
 
 import { CoursesComponent } from './courses.component';
 import { FavoriteComponent } from './favorite/favorite.component';
@@ -17,6 +19,7 @@ import { InputFormatDirective } from './input-format.directive';
 import { ZyppyComponent } from './zyppy/zyppy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { PostsComponentComponent } from './posts-component/posts-component.component';
 
 
 @NgModule({
@@ -31,15 +34,18 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     InputFormatDirective,
     ZyppyComponent,
     ContactFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    PostsComponentComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
-  	CoursesService
+  	CoursesService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })
