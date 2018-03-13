@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular app';
+  isFavorite = true;
+
+  onFavoriteChanged(valor){
+  	alert('favorite changed '+valor);
+  }
+
 }

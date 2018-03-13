@@ -1,0 +1,18 @@
+.zyppy{
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+.zyppy-heading {
+	font-weight: bold;
+	padding: 20px;
+	cursor: pointer;
+}
+
+.zyppy-body {
+	padding: 25px;
+}
+
+.expanded {
+	background-color: #f0f0f0;
+}

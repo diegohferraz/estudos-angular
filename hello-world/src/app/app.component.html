@@ -1,2 +1,18 @@
 <h1>Angular</h1>
+<contact-form></contact-form>
 <courses></courses>
+<favorite [is-favorite] = "isFavorite" (change)="onFavoriteChanged($event)"></favorite>
+<app-panel>
+	<ng-container class="heading">
+		HEADING
+	</ng-container>
+	<div class="body">
+		<h2>Body</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, est, beatae? Ratione repellendus incidunt, illum doloremque delectus repellat ea inventore reiciendis itaque! Nostrum reprehenderit, eius facere nisi, quis esse ullam.</p>	
+	</div>
+</app-panel>
+<input type="text" appInputFormat [format]="'upper'" >
+<br/><br/>
+<zyppy title="Shipping details">
+	Zippy details content
+</zyppy>

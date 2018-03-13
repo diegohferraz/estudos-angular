@@ -1,0 +1,9 @@
+<div class="zyppy">
+	<div class="zyppy-heading"
+		[class.expanded] = "isExpanded"
+		(click) = "toggle()"
+		> {{ title }} </div>
+	<div class="zyppy-body" *ngIf="isExpanded">
+		<ng-content></ng-content>
+	</div>
+</div>
