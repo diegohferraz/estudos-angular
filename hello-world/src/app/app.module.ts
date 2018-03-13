@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { CoursesService } from './courses.service';
@@ -16,6 +16,7 @@ import { TitleCasePipe } from './title-case.pipe';
 import { InputFormatDirective } from './input-format.directive';
 import { ZyppyComponent } from './zyppy/zyppy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
 
 
 @NgModule({
@@ -29,11 +30,13 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     PanelComponent,
     InputFormatDirective,
     ZyppyComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    SignupFormComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
   	CoursesService

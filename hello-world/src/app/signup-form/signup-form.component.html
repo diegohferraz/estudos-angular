@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+    <div *ngIf="form.errors" class="alert alert-danger">
+    	Username ou password is invalid.
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+        	formControlName="username"
+            id="username" 
+            type="text" 
+            class="form-control">
+        <div *ngIf="username.pending">Checkin for uniquiness...</div>
+        <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+        	<div *ngIf="username.errors.required" >Username is required</div>
+        	<div *ngIf="username.errors.minlength" >Username should be minimum 3 characters</div>
+        	<div *ngIf="username.errors.cannotContainSpace" >Username cannot contain space</div>
+        	<div *ngIf="username.errors.shouldBeUnique" >Username should be unique</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+        	fomrControlName="password"
+            id="password" 
+            type="text" 
+            class="form-control">
+    </div>
+
+    <input 
+        type="text" 
+        class="form-control"
+        (keyup.enter) = "addTopic(topic)" #topic>
+    <ul class="list-group">
+        <li 
+            class="list-group-item"
+            *ngFor="let topic of form.get('topics').controls"
+            (click)="removeTopic(topic)"
+        >
+            {{ topic.value }}
+        </li>
+    </ul>
+
+    <button class="btn btn-primary" type="submit">Sign Up</button>
+</form>
