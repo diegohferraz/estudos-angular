@@ -45,7 +45,7 @@ export class SignupFormComponent{
 	}
 
 	removeTopic(topic: FormControl){
-		let index = this.form.get('topics') as FormArray).controls.indexOf(topic);
+		let index = (this.form.get('topics') as FormArray).controls.indexOf(topic);
 		(this.form.get('topics') as FormArray).removeAt(index);
 	}
 

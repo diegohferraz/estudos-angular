@@ -21,6 +21,10 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { PostsComponentComponent } from './posts-component/posts-component.component';
 
+import { ErrorHandler } from '@angular/core';
+import { AppErrorHandler } from './common/app-error-handler';
+
+
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { PostsComponentComponent } from './posts-component/posts-component.compo
   ],
   providers: [
   	CoursesService,
-    PostService
+    PostService,
+    {provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   bootstrap: [AppComponent]
 })
