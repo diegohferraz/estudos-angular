@@ -9,7 +9,7 @@ import { BadInput } from './../bad-input';
   templateUrl: './posts-component.component.html',
   styleUrls: ['./posts-component.component.css']
 })
-export class PostsComponentComponent implements OnInit{
+export class PostsComponent implements OnInit{
 
 	posts: any[];
 	
@@ -30,14 +30,16 @@ export class PostsComponentComponent implements OnInit{
 	createPost(input: HTMLInputElement){
 		
 		let post = {title: input.value}
+		this.posts.splice(0,0,post);
 		input.value = '';
 
 		this.service.create(post).subscribe(
 			response => {
 				post['id'] = response.json().id;
-				this.posts.splice(0,0,post);
 			},
 			error => {
+				this.posts.splice(0,1);
+
 				if(error instanceof BadInput){
 					alert("Error 400");
 				}else throw error;
@@ -56,14 +58,16 @@ export class PostsComponentComponent implements OnInit{
 	}
 
 	deletePost(post) {
+		let index = this.posts.indexOf(post);
+		this.posts.splice(index, 1);
 
 		this.service.delete(post.id).subscribe(
 			response => {
 				console.log(response.json());
-				let index = this.posts.indexOf(post);
-				this.posts.splice(index, 1);
 			},
 			error => {
+				this.posts.splice(index,0,post);
+
 				if(error instanceof NotFoundError){
 					alert("Error 404");
 				}else throw error;

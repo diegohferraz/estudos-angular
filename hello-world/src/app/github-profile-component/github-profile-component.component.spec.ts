@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostsComponent } from './posts-component.component';
+import { GithubProfileComponent } from './github-profile-component.component';
 
-describe('PostsComponent', () => {
-  let component: PostsComponent;
-  let fixture: ComponentFixture<PostsComponent>;
+describe('GithubProfileComponent', () => {
+  let component: GithubProfileComponent;
+  let fixture: ComponentFixture<GithubProfileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostsComponent ]
+      declarations: [ GithubProfileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostsComponent);
+    fixture = TestBed.createComponent(GithubProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
