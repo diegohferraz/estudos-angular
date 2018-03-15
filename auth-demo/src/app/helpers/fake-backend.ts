@@ -2,22 +2,22 @@ import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } fr
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 export function fakeBackendFactory(
-    backend: MockBackend, 
+    backend: MockBackend,
     options: BaseRequestOptions) {
-        
-  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRpZWdvIEhlcm5hbmRlcyBGZXJyYXoiLCJhZG1pbiI6dHJ1ZX0.ntnHNK7LcekolnVNasZbmPllsngP9EqCHwX3pHnuSaE';
+
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRpZWdvIEhlcm5hbmRlcyBGZXJyYXoiLCJhZG1pbiI6dHJ1ZX0.ntnHNK7LcekolnVNasZbmPllsngP9EqCHwX3pHnuSaE';
 //  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwic3VybmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlcyI6W10sImFkbWluIjpmYWxzZX0.bCSmWL3VOxZ_wDuUwv2okVyo-Q5Ejs0ht8mOQhAfFFY';
-    
+
   backend.connections.subscribe((connection: MockConnection) => {
-    // We are using the setTimeout() function to simulate an 
-    // asynchronous call to the server that takes 1 second. 
+    // We are using the setTimeout() function to simulate an
+    // asynchronous call to the server that takes 1 second.
     setTimeout(() => {
       //
       // Fake implementation of /api/authenticate
       //
       if (connection.request.url.endsWith('/api/authenticate') &&
         connection.request.method === RequestMethod.Post) {
-        let body = JSON.parse(connection.request.getBody());
+        const body = JSON.parse(connection.request.getBody());
 
         if (body.email === 'diego@domain.com' && body.password === '1234') {
           connection.mockRespond(new Response(
@@ -28,16 +28,16 @@ export function fakeBackendFactory(
         } else {
           connection.mockRespond(new Response(
             new ResponseOptions({ status: 200 })
-          )); 
+          ));
         }
       }
 
 
 
-       // 
+       //
        // Fake implementation of /api/orders
        //
-       if (connection.request.url.endsWith('/api/orders') && 
+       if (connection.request.url.endsWith('/api/orders') &&
            connection.request.method === RequestMethod.Get) {
          if (connection.request.headers.get('Authorization') === 'Bearer ' + token) {
             connection.mockRespond(new Response(

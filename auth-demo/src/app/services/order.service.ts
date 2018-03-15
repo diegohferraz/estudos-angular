@@ -8,14 +8,14 @@ export class OrderService {
   constructor(private http: Http) {
   }
 
-  getOrders() { 
+  getOrders() {
 
-  	let appHeaders = new Headers();
-  	let token = localStorage.getItem('token');
+    const appHeaders = new Headers();
+    const token = localStorage.getItem('token');
 
-  	appHeaders.append('Authorization', "Bearer "+ token);
+    appHeaders.append('Authorization', 'Bearer ' + token);
 
-  	let options = new RequestOptions({headers : appHeaders});
+    const options = new RequestOptions({headers : appHeaders});
 
     return this.http.get('/api/orders', options)
       .map(response => response.json());
