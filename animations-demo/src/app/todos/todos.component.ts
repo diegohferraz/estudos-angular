@@ -1,10 +1,27 @@
 import { Component } from '@angular/core';
+import { trigger, state, transition, style, animate, keyframes, useAnimation } from '@angular/animations';
+import { bounceOutLeftAnimation } from './../animations';
+
+// void <=> * = :enter, :leave
 
 @Component({
   selector: 'todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css'],
+  animations: [
+      trigger('todoAnimation', [
+          transition(':enter', [
+            
+          ]),
+          transition(':leave', [
+            style({ backgroundColor: 'red' }),
+            animate(1000),
+            useAnimation(bounceOutLeftAnimation)
+          ])
+      ])
+  ]
 })
+
 export class TodosComponent {
   items: any[] = [
     'Wash the dishes', 
@@ -20,4 +37,16 @@ export class TodosComponent {
     let index = this.items.indexOf(item);
     this.items.splice(index, 1);
   }
+
+  animationStarted($event) {
+    console.log("Started");
+    console.log($event);
+  }
+
+  animationDone($event) {
+    console.log("Done");
+    console.log($event);
+  }
+
+
 }
