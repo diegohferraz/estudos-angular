@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger, state, transition, style, animate, keyframes, useAnimation } from '@angular/animations';
+import { trigger, state, transition, style, animate, keyframes, useAnimation, query, animateChild, group, stagger } from '@angular/animations';
 import { bounceOutLeftAnimation } from './../animations';
 
 // void <=> * = :enter, :leave
@@ -9,9 +9,24 @@ import { bounceOutLeftAnimation } from './../animations';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css'],
   animations: [
+    trigger('todosAnimations', [
+        transition(':enter',[
+          group([
+            query('h1', [
+              style({ transform: 'translateY(-20px)'}),
+              animate(1000)
+            ]),
+            query('@todoAnimation', 
+              stagger(200, animateChild())
+            )
+          ])
+        ])
+      ]),
+
       trigger('todoAnimation', [
           transition(':enter', [
-            
+            style({ opacity: 0 }),
+            animate(1000),
           ]),
           transition(':leave', [
             style({ backgroundColor: 'red' }),
