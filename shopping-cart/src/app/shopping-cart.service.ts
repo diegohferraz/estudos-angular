@@ -11,10 +11,28 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
+  async getCart(): Promise<Observable<ShoppingCart>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object('/shopping-carts/' + cartId).map(x => new ShoppingCart(x.items));
+  }
+
+  async clearCart() {
+   let cartId = await this.getOrCreateCartId();
+   this.db.object('/shopping-carts/' + cartId + '/items').remove();
+  }
+
   private create() {
     return this.db.list('/shopping-carts').push({
       dateCreated: new Date().getTime()
     });
+  }
+
+  async addToCart(product: Product) {
+    this.updateItem(product, 1);
+  }
+
+  async removeFromCart(product) {
+    this.updateItem(product, -1);
   }
 
   private async getOrCreateCartId(): Promise<string> {
@@ -29,21 +47,8 @@ export class ShoppingCartService {
     
   }
 
-  async getCart(): Promise<Observable<ShoppingCart>> {
-    let cartId = await this.getOrCreateCartId();
-    return this.db.object('/shopping-carts/' + cartId).map(x => new ShoppingCart(x.items));
-  }
-
   private getItem(cartId: string, productId:string) {
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
-  }
-
-  async addToCart(product: Product) {
-    this.updateItem(product, 1);
-  }
-
-  async removeFromCart(product) {
-    this.updateItem(product, -1);
   }
 
   private async updateItem(product: Product, change: number){
@@ -51,11 +56,15 @@ export class ShoppingCartService {
     let item$ = this.getItem(cartId, product.$key);
 
     item$.take(1).subscribe(item => {
-      item$.update({ 
-        title: product.title,
-        imageUrl: product.imageUrl,
-        price: product.price,
-        quantity: (item.quantity || 0) + change })
+      let quantity = (item.quantity || 0) + change;
+      if (quantity <= 0) item$.remove();
+      else
+        item$.update({ 
+          title: product.title,
+          imageUrl: product.imageUrl,
+          price: product.price,
+          quantity: quantity
+        })
     });
   }
 
